@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+ 
+    int n,m;         // get input for two arrays 
+    scanf("%d",&n);
+    int a[n+1];
+    for(int i=1;i<=n;i++) scanf("%d",&a[i]);
+    scanf("%d",&m);
+    int b[m+1],cell[n+1][m+1];  // create a two dimesional array to form a grid.
+    for(int i=1;i<=m;i++) scanf("%d",&b[i]);
+    int max=0;
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=m;j++)
+        {
+            if(i==0||j==0) cell[i][j]=0;        //In the 0th row and column fll the grid with zeroes.
+            else if(a[i]==b[j]) cell[i][j]=cell[i-1][j-1]+1;   // if there are similar numbers between both arrays then at that index increment the value of the previous diagnol
+            else cell[i][j]=0;                                 //and store it in the grid if there are no similar elements just fill it with a zero at that index. 
+            
+            if(cell[i][j]>max) max=cell[i][j];   //the maximum element in the grid is the highest continuous sequence of similarities btn 2 arrays.
+            
+        }
+    }
+    printf("%d",max);
+    return 0;
+}
