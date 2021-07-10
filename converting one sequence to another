@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+int min(int a,int b)        // user defined function to find the minimum of two numbers
+{
+    if(a<b) return a;
+    else return b;
+}
+
+int main() {
+
+    int n,m;
+    scanf("%d",&n);
+    int a[n+1];
+    for(int i=1;i<=n;i++) scanf("%d",&a[i]);  // get input for the arrays
+    scanf("%d",&m);
+    int b[m+1],cell[n+1][m+1];    // create a double dimensional array to form a grid 
+    for(int i=1;i<=m;i++) scanf("%d",&b[i]);
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=m;j++)
+        {
+            if(i==0) cell[i][j]=j;    // fill the grid with the column and row numbers at the 0th row and colum. and start to compare two array elements.
+            else if(j==0) cell[i][j]=i;
+            else if(a[i]==b[j]) cell[i][j]=cell[i-1][j-1];  //if the elements are equal the copy the element present in its previous diagnol.
+            else cell[i][j]=min(cell[i][j-1],min(cell[i-1][j-1],cell[i-1][j]))+1;   //if the element is not same take the minimum between previous diagnol,left and top element in
+        }                                                                           //the grid.and the last element of the grid is the number of changes made to convert the 1st
+    }                                                                               // sequence to another.
+    printf("%d",cell[n][m]);
+    return 0;
+}
